@@ -23,7 +23,7 @@ class PNGCompress{
         }
         try{
             //compress the image and overwrite the origin one
-            @exec("/usr/bin/pngquant  --ext .png --quality=50-90  ".escapeshellarg($this->path_to_png_file));
+            @exec("/usr/bin/pngquant -f  --ext .png --quality=50-90  ".escapeshellarg($this->path_to_png_file));
         }
         catch (\Exception $e){
             throw new \Exception($e->getMessage());
