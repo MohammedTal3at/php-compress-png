@@ -14,6 +14,7 @@ if ( isset( $_FILES[ 'image' ] ) ) {
         try {
                  if($png_compress->compress()){
                      $size_after = round(filesize($dest.'-compressed')/1024);
+                     $new_dest = explode('.',$dest)[0] . '-compressed'.'.'.$ext;
                  }
                  else
                      echo 'Something went wrong!';
@@ -43,11 +44,11 @@ if ( isset( $_FILES[ 'image' ] ) ) {
             <input id="image" type="file" name="image" required>
             <input type="submit" value="Upload" name="submit" accept="image/png">
         </form>
-        <?php if(isset($size_before) && isset($size_after)) {?>
+        <?php if(isset($size_before) && isset($size_after) && isset($new_dest)) {?>
             <b style="color: red">Size Before : <?php echo $size_before?> kb</b><br>
             <b style="color: blue">Size After : <?php echo $size_after?> kb</b><br>
             <b style="color: green">Smaller By: <?php echo round(($size_after/$size_before)*100) . "%" ?></b><br>
-            <img src="<?= $dest.'-compressed'?>" alt="Compressed Image" >
+            <img src="<?= $new_dest?>" alt="Compressed Image" >
         <?php } ?>
         <br>
 
