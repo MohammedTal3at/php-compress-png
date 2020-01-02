@@ -10,7 +10,6 @@ class PNGCompress{
     }
 
     /**
-     * @param $path_to_png_file
      * @return bool
      * @throws Exception
      * @author Mohamed Talaat <m.talaat377@gmail.com>
@@ -23,7 +22,8 @@ class PNGCompress{
         }
         try{
             //compress the image and overwrite the origin one
-            @exec("/usr/bin/pngquant -f  --ext .png --quality=50-90  ".escapeshellarg($this->path_to_png_file));
+            $content = @shell_exec("/usr/bin/pngquant -f  --quality=50-90 - <  ".escapeshellarg($this->path_to_png_file));
+            @file_put_contents($this->path_to_png_file.'-compressed',$content);
         }
         catch (\Exception $e){
             throw new \Exception($e->getMessage());
