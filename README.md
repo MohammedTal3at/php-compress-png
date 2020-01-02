@@ -2,7 +2,7 @@
 A very simple php class for compress png images using pngquant.
 
 
-Requirments:
+Requirments:  
 1- Lamp stack  
 2- install pngquant:
 
