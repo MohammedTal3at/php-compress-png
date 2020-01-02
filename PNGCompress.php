@@ -3,10 +3,12 @@
 class PNGCompress{
 
     private $path_to_png_file;
+    private $path_to_compressed_png_file;
 
-    public function __construct($path_to_png_file)
+    public function __construct($path_to_png_file, $path_to_compressed_png_file)
     {
         $this->path_to_png_file = $path_to_png_file;
+        $this->path_to_compressed_png_file = $path_to_compressed_png_file;
     }
 
     /**
@@ -23,7 +25,7 @@ class PNGCompress{
         try{
             //compress the image and overwrite the origin one
             $content = @shell_exec("/usr/bin/pngquant -f  --quality=50-90 - <  ".escapeshellarg($this->path_to_png_file));
-            @file_put_contents($this->path_to_png_file.'-compressed',$content);
+            @file_put_contents($this->path_to_compressed_png_file,$content);
         }
         catch (\Exception $e){
             throw new \Exception($e->getMessage());

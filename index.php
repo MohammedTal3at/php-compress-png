@@ -6,15 +6,17 @@ if ( isset( $_FILES[ 'image' ] ) ) {
     $ext = pathinfo($image_full_name, PATHINFO_EXTENSION);
     $base_name = explode('.',$image_full_name)[0];
     $dest = 'uploads/'.$base_name.'-'. rand(1,100).'.'.$ext;
+    $new_dest = explode('.',$dest)[0] . '-compressed'.'.'.$ext;
+
 
     if ( move_uploaded_file( $_FILES[ 'image' ][ 'tmp_name' ] , $dest ) ) {
         $size_before = round(filesize($dest) / 1024);
-        $png_compress = new PNGCompress( $dest );
+        $png_compress = new PNGCompress( $dest , $new_dest );
 
         try {
                  if($png_compress->compress()){
-                     $size_after = round(filesize($dest.'-compressed')/1024);
-                     $new_dest = explode('.',$dest)[0] . '-compressed'.'.'.$ext;
+                     echo  $new_dest;
+                     $size_after = round(filesize($new_dest)/1024);
                  }
                  else
                      echo 'Something went wrong!';
